@@ -1,0 +1,133 @@
+<html lang="en">
+    <%- include("../partials/header.ejs") %>
+    
+    <body class="is-light" style="margin-left: 10%; margin-right: 10%;"> 
+        <style>
+
+            .card-container{
+                display: flex; 
+                justify-content: space-around;  
+                flex-wrap: wrap;
+                align-items: center;
+            }
+            .card-index{
+                height: 250px; 
+                width:250px; 
+                padding:10px 10px 10px 20px;
+                margin: 10px;
+                color: black;
+                box-shadow: 0px 0px 20px 2px lightgrey;
+            }
+
+            .card-index:hover{  
+                box-shadow: 0px 0px 20px 2px grey;
+            }
+
+            
+
+        </style>
+    <%- include("../partials/nav.ejs") %>
+    
+    <div class="block tab-container">
+
+
+        <section class="hero is-danger" style="background-color:#f80000; color:white; border-radius: 4px;">
+            <nav class="tabs tabs is-toggle is-fullwidth is-normal">
+                <div class="container">
+                    <ul>
+                    <li class="tab is-active"><a href="/configure">Index</a></li>
+                    <li class="tab" ><a href="/configure/ownership">Ownership</a></li>
+                    <li class="tab" ><a href="/configure/product">Product Version</a></li>
+                    <li class="tab" ><a href="/configure/define">Define Relationship</a></li>
+                    <li class="tab"><a href="/configure/account">Account Settings</a></li>
+                    </ul>
+                </div>
+            </nav> 
+        </section>
+            
+            
+    
+        <div class="container section" style="padding: 30px;">
+            <div id="index" class="content-tab" >
+                <div class="card-container">
+                    <a class="card-index" href="/configure/ownership">
+                        <div style="text-align:center">
+                            <p style="font-weight: bold;">My Product</p>
+                        </div>
+                        <hr class="navbar-divider">
+                        <div style="padding:10px">
+                            <ul style="list-style-type: square;">
+                                <li>You can request ownership of products.</li>
+                                <br>
+                                <li>Monitor all the products you own.</li>
+                            </ul>
+                        </div>
+                    </a>
+                    <a class="card-index" href="/configure/product">
+
+                        <div style="text-align:center">
+                            <p style="font-weight: bold;">Add Product Version</p>
+                        </div>
+                        <hr class="navbar-divider">
+                        <div style="padding:10px">
+                            <ul style="list-style-type: square;">
+                                <li>Update or remove details of existing product versions.</li>
+                                <br>
+                                <li>Add new products version into the system.</li>
+                            </ul>
+                        </div>
+                    </a>
+                    <a class="card-index" href="/configure/define">
+
+                        <div style="text-align:center">
+                            <p style="font-weight: bold;">Define Relationship</p>
+                        </div>
+                        <hr class="navbar-divider">
+                        <div style="padding:10px">
+                            <ul style="list-style-type: square;">
+                                <li>Establish the relationship between a build, a platform and a product version</li>
+                                <br>
+                                <li>Alter already existing relationship</li>
+                            </ul>
+                        </div>
+                    </a>
+                    <a class="card-index" href="/configure/account">
+
+                        <div style="text-align:center">
+                            <p style="font-weight: bold;">Account Settings</p>
+                        </div>
+                        <hr class="navbar-divider">
+                        <div style="padding:10px">
+                            <ul style="list-style-type: square;">
+                                <li>View the account details.</li>
+                                <br>
+                                <li>Reset the password of the account.</li>
+                            </ul>
+                        </div>
+                    </a>
+                </div> 
+            </div>
+        </div>
+            
+                
+    </div> 
+
+    <script>
+        function openTab(evt, tabName) {
+            var i, x, tablinks;
+            x = document.getElementsByClassName("content-tab");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab");
+            for (i = 0; i < x.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" is-active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " is-active";
+        }
+    </script>
+            
+    <%- include("../partials/footer.ejs") %>
+    </body>
+</html>

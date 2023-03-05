@@ -1,0 +1,267 @@
+<html lang="en">
+    <%- include("../partials/header.ejs") %>
+    <style>
+
+        .card-container{
+            display: flex; 
+            justify-content: space-around;  
+            flex-wrap: wrap;
+            align-items: flex-start;
+        }
+
+        .card-request-ownership{
+            padding:10px;
+            margin: 10px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 20px 2px lightgrey;
+            text-align: center;
+        }
+
+        .icon-button{
+            background: transparent;
+            border: None;
+        }
+        
+    </style>
+    <body class="is-light" style="margin-left: 10%; margin-right: 10%;"> 
+    
+    <%- include("../partials/nav.ejs") %>
+
+
+    <div class="block" style="min-height: 650px;padding: 10px; border: solid; border-color: rgb(200, 200, 200); border-width: 2px; border-radius: 4px; margin-top: 50px;">
+        <br>
+        
+        <form method="POST">
+            
+            <div>
+                <div class=" is-normal" style="display:inline-block;  text-align: right; margin-right: 10px;  padding-top: 7px; width:150px;">
+                    Tools Version:
+                </div>
+                <div class="select is-normal" style="display:inline-block;">
+                    <select id="toolsVersion" name="toolsVersion" onchange="clickButton()">
+                        <option disabled hidden selected> Select Tools Version </option>
+                        <% for(var i = 0; i < tools.length; i++) { %>
+                            <% var j = i + 1%>
+                            <% if( tools[i].toolsVersion === filter_tools) {%>
+                                <option selected value="<%= tools[i].toolsVersion%>+<%= j %>" ><%= tools[i].toolsVersion%></option>
+                            <%} else {%>
+                                <option value="<%= tools[i].toolsVersion%>+<%= j %>" ><%= tools[i].toolsVersion%></option>
+                            <%} %>
+                        <% } %>
+                    </select>
+                </div>
+            </div> 
+
+            <div >
+                <button id="confirmSelectionButton" class="button" type="submit" formaction="/index/redirect" style="background-color: #f80000; color: white; display: none;">Tools selection</button>
+            </div>
+        </form>
+
+        <form method="POST">
+            <div>
+                <div class=" is-normal" style="display:inline-block; text-align: right; margin-right: 10px;  padding-top: 7px; width:150px;">
+                    Build:
+                </div>
+        
+                <div class="select is-normal" style="display:inline-block;">
+                    <select id="build" name="build" onchange="checkSelections()"> 
+                        <option disabled hidden selected value="default"> Select Build </option>
+                        <% for(var i = 0; i < build_list.length; i++) { %>
+                            <% var j = i + 1%>
+                            <% if( build_list[i] === filter_build) {%>
+                                <option selected value="<%= build_list[i]%>+<%= j %>"><%= build_list[i]%></option>
+                            <%} else {%>
+                                <option value="<%= build_list[i]%>+<%= j %>"><%= build_list[i]%></option>
+                            <%} %>
+                        <% } %>
+                        <% if( 'Latest' === filter_build) {%>
+                            <option selected value="<%= build_list[build_list.length - 1]%>+<%= build_list.length %>+Latest">Latest</option>
+                        <%} else {%>
+                            <option value="<%= build_list[build_list.length - 1]%>+<%= build_list.length %>+Latest">Latest</option>
+                        <%} %>  
+                    </select>
+                </div>
+            </div> 
+            <div >
+                <button id="finalSubmit" class="button" type="submit" style="background-color: #f80000; color: white; margin-left: 164px; margin-top: 16px;" disabled>Confirm Selection</button>
+            </div>
+        </form>
+
+        <div id="dataDiv" style="display: none;">
+            <div class="card-container">
+                <div class="card-request-ownership">
+                    <h2 style="font-size: large; font-weight: 500;">Changes made in <%= filter_tools %> - <%= filter_build %></h2>
+                    <table id="displayTable" class="table is-bordered is-striped is-narrow is-fullwidth is-hoverable">
+                        <thead>
+                            <tr>
+                                <th onclick="sortTable(0)">Product <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon></th>
+                                <th onclick="sortTable(1)">Platform <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon></th>
+                                <th onclick="sortTable(2)">Product Version <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon></th>           
+                            </tr>
+                        </thead>
+                        <tbody> 
+                            <% for(var i = 0; i < display.length; i++) { %>  
+                                <% if(rowId === '' + i) { %>  
+                                    <tr id="<%= i %>" style="background-color: #f80000; color: white;">
+                                        <form method="POST">
+                                            <td><%= display[i].product %></td>
+                                            <td><%= display[i].platform %></td>
+                                            <td><%= display[i].version %> 
+                                                <input class="buildCopy" name="build" type="text" hidden>
+                                                <input name="productInput" type="text" value="<%= display[i].product %>" hidden>
+                                                <input name="platformInput" type="text" value="<%= display[i].platform %>" hidden>
+                                                <input name="versionInput" type="text" value="<%= display[i].version %>" hidden> 
+                                                <input name="rowId" type="text" value="<%= i %>" hidden> 
+                                                <button class="is-large icon-button" type="submit"> 
+                                                    <i class='fas fa-caret-right fa-lg' style="margin-bottom: 1px;"></i>
+                                                </button> 
+                                            </td>         
+                                        </form>   
+                                    </tr> 
+                                <% } else { %> 
+                                    <tr id="<%= i %>">
+                                        <form method="POST">
+                                            <td><%= display[i].product %></td>
+                                            <td><%= display[i].platform %></td>
+                                            <td><%= display[i].version %> 
+                                                <input class="buildCopy" name="build" type="text" hidden>
+                                                <input name="productInput" type="text" value="<%= display[i].product %>" hidden>
+                                                <input name="platformInput" type="text" value="<%= display[i].platform %>" hidden>
+                                                <input name="versionInput" type="text" value="<%= display[i].version %>" hidden> 
+                                                <input name="rowId" type="text" value="<%= i %>" hidden> 
+                                                <button class="is-large icon-button" type="submit"> 
+                                                    <i class='fas fa-caret-right fa-lg' style="margin-bottom: 1px;"></i>
+                                                </button> 
+                                            </td>         
+                                        </form>     
+                                    </tr> 
+                                <% } %> 
+                            <% } %>                
+                        </tbody>
+                    </table>
+                </div>
+
+                <div id="productDiv" class="card-request-ownership" style="display: none;">
+                    <h2 style="font-size: large; font-weight: 500;">Details of <span id="versionName"><%= version_details.name %></span> </h2>
+                    <div style="overflow:scroll;">
+                        <table id="displayTable" class="table is-bordered is-striped is-narrow  is-hoverable">
+                            <thead>
+                            </thead>
+                            <tbody> 
+                                <tr>               
+                                    <th>Name: </th>
+                                    <td><%= version_details.name %></td>
+                                </tr> 
+                                <tr>               
+                                    <th>Major version: </th>
+                                    <td><%= version_details.major %></td>
+                                </tr> 
+                                <tr>               
+                                    <th>Start Date: </th>
+                                    <td><%= version_details.startdate %></td>
+                                </tr> 
+                                <tr>               
+                                    <th>End Date: </th>
+                                    <td><%= version_details.enddate %></td>
+                                </tr> 
+                                <tr>               
+                                    <th>Bitness: </th>
+                                    <td><%= version_details.bitness %></td>
+                                </tr> 
+                                <tr>               
+                                    <th>Download Link: </th>
+                                    <td><a><%= version_details.downloadLink %></a></td>
+                                </tr> 
+                                <tr>               
+                                    <th>Discription: </th>
+                                    <td><%= version_details.discription %></td>
+                                </tr> 
+                                <tr>               
+                                    <th>Location: </th>
+                                    <td><%= version_details.location %></td>
+                                </tr>  
+                                <tr>               
+                                    <th>Notes: </th>
+                                    <td><%= version_details.notes %></td>
+                                </tr>    
+                            </tbody>
+                        </table>
+                    </div>
+                    <% var route = '/index/history/' + product.split(' ').join('-') + '/' +platform.split(' ').join('-') ; %>
+                    <a href="<%= route %>">
+                        History
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <%- include("../partials/footer.ejs") %>
+    </body>
+    <script>
+
+        window.onload = () => {
+            if(document.getElementById('build').value != "default"){
+                document.getElementById('finalSubmit').disabled = false;
+                document.getElementById('dataDiv').style.display = "block";
+            }
+            let arr= document.getElementsByClassName('buildCopy');
+            for(let i = 0; i < arr.length; i++)
+                arr[i].value = document.getElementById('build').value;
+            
+            if(document.getElementById('versionName').innerText)
+                document.getElementById('productDiv').style.display = "block";
+            
+            sortTable(0);
+        }
+
+        function clickButton(){
+            document.getElementById('confirmSelectionButton').click();
+        }
+
+        function checkSelections(){
+            if(document.getElementById('build').value != "default")
+                document.getElementById('finalSubmit').disabled = false;
+            document.getElementById('buildCopy').value = document.getElementById('build').value;
+        }
+
+
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("displayTable");
+            switching = true;
+            dir = "asc"; 
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    shouldSwitch= true;
+                    break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                    }
+                }
+                }
+                if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount ++;      
+                } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+                }
+            }
+        }
+    </script>
+</html>

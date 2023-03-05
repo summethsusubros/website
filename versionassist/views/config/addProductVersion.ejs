@@ -1,0 +1,313 @@
+<html lang="en">
+    <%- include("../partials/header.ejs") %>
+    
+    <body class="is-light" style="margin-left: 10%; margin-right: 10%;"> 
+        <style>
+
+            .icon-button{
+                background: transparent;
+                border: None;
+                padding: 0px;
+                margin: 0px;
+            }
+
+            .input-box{
+                width: 160px;
+                border-color: grey;
+                color: black;
+            }
+
+            .input-box::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: black;
+            opacity: 0.5; /* Firefox */
+            }
+
+
+            .border-text{
+                margin-left: 22px; 
+                background-color: white; 
+                width:140px; 
+                text-align: center; 
+                color: #f80000;
+                position:absolute; 
+                top:-13px;
+                z-index: 1;
+            }
+
+        </style>
+    <%- include("../partials/nav.ejs") %>
+    
+    <div class="block tab-container">
+
+
+        <section class="hero is-danger" style="background-color:#f80000; color:white; border-radius: 4px;">
+            <nav class="tabs tabs is-toggle is-fullwidth is-normal">
+                <div class="container">
+                    <ul>
+                        <li class="tab"><a href="/configure/">Index</a></li>
+                        <li class="tab" ><a href="/configure/ownership">Ownership</a></li>
+                        <li class="tab is-active" ><a href="/configure/product">Product Version</a></li>
+                        <li class="tab" ><a href="/configure/define">Define Relationship</a></li>
+                        <li class="tab" ><a href="/configure/account">Account Settings</a></li>
+                        </ul>
+                </div>
+            </nav> 
+        </section>
+
+        <div class="container section" style="padding: 30px;">
+
+            <div id="productVersion" class="content-tab">
+
+                <div>
+                    <div class=" is-normal" style="display:inline-block; width: 200px; text-align: right; margin-right: 20px; padding-top: 7px;">
+                        Third party type:
+                    </div>
+                    <div class="dropdown is-hoverable" style="display:inline-block;"> 
+                        <div class="dropdown-trigger">
+                            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                            <span> <%= name %> </span>
+                            <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                            </button>
+                        </div>
+                
+                        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                            <div class="dropdown-content">
+                                <% for(var i = 0; i < owned.length; i++) { %>
+                                    <% var route = '/configure/product/' + owned[i].split(' ').join('-'); %>
+                                    <%  if( name === owned[i]){ %>
+                                        <a href="<%= route %>"  class="dropdown-item" style="color: white; background-color: rgba(248,0,0, 0.8);" >
+                                            <%= owned[i] %>  
+                                       </a>
+
+                                    <%  } else { %>
+                                        <a href="<%= route %>"  class="dropdown-item">
+                                            <%= owned[i] %>  
+                                        </a>
+                                    <%  } %>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>    
+                <div>
+                    <form method="POST">
+                        <div style="position: relative;">
+                            <p class="border-text">Add a new version</p>
+                            <div class="dropbox-container">
+                                <div>
+                                    <input class="input input-box" type="text" id="versionInput" name="version" placeholder="Version" required>
+                                </div>
+                                <div>
+                                    <input class="input input-box" type="text" id="majorVersionInput" name="majorVersion" placeholder="Major Version">
+                                </div>
+                                <div>
+                                    <input class="input input-box" type="text" id="startDateInput" name="startDate" placeholder="Start Date">
+                                </div>
+                                <div>
+                                    <input class="input input-box" type="text" id="endDateInput" name="endDate" placeholder="End Date">
+                                </div>
+                                <div>
+                                    <input class="input input-box" type="text" id="bitnessInput" name="bitness" placeholder="Bitness">
+                                </div>
+                                <div>
+                                    <input class="input input-box" type="text" id="downloadLinkInput" name="downloadLink" placeholder="Download link">
+                                </div>
+                                <div>
+                                    <input class="input input-box" type="text" id="discriptionInput" name="discription" placeholder="Discription">
+                                </div>
+                                <div>
+                                    <input class="input input-box" type="text" id="locationInput" name="location" placeholder="Location">
+                                </div>
+                                <div>
+                                    <textarea class="textarea input-box" id="notesInput" name="notes" placeholder="Add extra details of this version"></textarea>
+                                </div>
+                                <div>
+                                    <button class="button" style="background-color: #f80000; color: white;" type="submit"> Add/Update version</button>
+                                </div>
+
+                                <div>
+                                    <button class="button" style="background-color: #f80000; color: white;" type="reset" onclick="cancel()"> Cancel</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                    <p style="color:#f80000;">Versions already in the system</p>
+                    <div style="overflow-y:scroll;">
+                        <table  id="versionTable" class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                            <thead>
+                            <tr>
+                                <th onclick="sortTable(0)">Version <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
+                                <th onclick="sortTable(1)">Major Version <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
+                                <th onclick="sortTable(2)">Start Date <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
+                                <th onclick="sortTable(3)">End Date <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
+                                <th onclick="sortTable(4)">Bitness <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
+                                <th >Download link </th>
+                                <th >Discription </th>
+                                <th >Location </th>
+                                <th >Notes </th>
+                                <th >Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <% for(var i = 0; i < version.length; i++) { %>
+                                <tr>
+                                <td id="versionOutput<%= i %>" style="font-weight: 700;" ><%= version[i].name %></td>
+                                <td id="majorVersionOutput<%= i %>"><%= version[i].major %></td>
+                                <td id="startDateOutput<%= i %>"><%= version[i].startdate %></td>
+                                <td id="endDateOutput<%= i %>"><%= version[i].enddate %></td>
+                                <td id="bitnessOutput<%= i %>"><%= version[i].bitness %></th>
+                                <td id="downloadLinkOutput<%= i %>"><%= version[i].downloadLink %></td>
+                                <td id="discriptionOutput<%= i %>"><%= version[i].discription %></td>
+                                <td id="locationOutput<%= i %>"><%= version[i].location %></td>
+                                <td id="notesOutput<%= i %>"><%= version[i].notes %></td>
+                                <form method="POST">
+                                    <input type="hidden" name="deleteVersion" value="<%= version[i].name %>"/>
+                                    <td>  
+                                        <div style="width:90px;">     
+                                            <% if(used.includes(version[i].name)) { %>                                           
+                                                <div style="display:inline-block">
+                                                    <button class="is-large icon-button has-tooltip-arrow" data-tooltip="Version is in use, can't delete" type="submit" disabled>     
+                                                        <lord-icon
+                                                            src="https://cdn.lordicon.com/gsqxdxog.json"
+                                                            trigger="hover"
+                                                            colors="primary:#000000,secondary:#000000"
+                                                            stroke="100"
+                                                            style="width:25px;height:25px">
+                                                        </lord-icon>
+                                                    </button>
+                                                </div> 
+                                            <% } else { %> 
+                                                <div style="display:inline-block">
+                                                    <button class="is-large icon-button has-tooltip-arrow" data-tooltip="Delete" type="submit">     
+                                                        <lord-icon
+                                                            src="https://cdn.lordicon.com/gsqxdxog.json"
+                                                            trigger="morph"
+                                                            colors="primary:#000000,secondary:#000000"
+                                                            state="morph-trash-in"
+                                                            stroke="100"
+                                                            style="width:25px;height:25px">
+                                                        </lord-icon>
+                                                    </button>
+                                                </div>
+                                            <% } %>
+                                                <div style="display:inline-block">
+                                                    <button class="is-large icon-button has-tooltip-arrow" data-tooltip="Edit" type="button" onclick="updateTextField('<%= i %>')">    
+                                                        <lord-icon
+                                                            src="https://cdn.lordicon.com/puvaffet.json"
+                                                            trigger="hover"
+                                                            colors="primary:#000000,secondary:#000000"
+                                                            stroke="100"
+                                                            style="width:26px;height:26px">
+                                                        </lord-icon>
+                                                    </button>
+                                                </div>
+                                            
+                                                <div style="display:inline-block">
+                                                    <button class="is-large icon-button has-tooltip-arrow" data-tooltip="Copy" type="button" onclick="copyToTextField('<%= i %>')">    
+                                                        <lord-icon
+                                                            src="https://cdn.lordicon.com/nocovwne.json"
+                                                            trigger="hover"
+                                                            colors="primary:#000000,secondary:#000000"
+                                                            stroke="100"
+                                                            state="hover-2"
+                                                            style="width:25px;height:25px">
+                                                        </lord-icon>
+                                                    </button>
+                                                </div>
+                                        </div> 
+                                    </td>
+                                </form>
+                                </tr>
+                            <% } %> 
+                            </tbody>
+                        </table>
+                    </div>
+                
+                </div>
+
+            </div>
+
+        </div>
+            
+    </div> 
+    
+    <%- include("../partials/footer.ejs") %>
+    </body>
+    <script>
+        function updateTextField(i) {
+            document.getElementById("versionInput").value = document.getElementById("versionOutput" + i).innerText;
+            document.getElementById("majorVersionInput").value = document.getElementById("majorVersionOutput" + i).innerText;
+            document.getElementById("startDateInput").value = document.getElementById("startDateOutput" + i).innerText;
+            document.getElementById("endDateInput").value = document.getElementById("endDateOutput" + i).innerText;
+            document.getElementById("bitnessInput").value = document.getElementById("bitnessOutput" + i).innerText;
+            document.getElementById("downloadLinkInput").value = document.getElementById("downloadLinkOutput" + i).innerText;
+            document.getElementById("discriptionInput").value = document.getElementById("discriptionOutput" + i).innerText;
+            document.getElementById("locationInput").value = document.getElementById("locationOutput" + i).innerText;
+            document.getElementById("notesInput").value = document.getElementById("notesOutput" + i).innerText;
+
+            document.getElementById("versionInput").style.pointerEvents = "None";
+            document.getElementById("versionInput").style.backgroundColor = "rgba(12, 12, 12, 0.1)";
+        }
+
+        function copyToTextField(i) {
+            document.getElementById("versionInput").value = document.getElementById("versionOutput" + i).innerText;
+            document.getElementById("majorVersionInput").value = document.getElementById("majorVersionOutput" + i).innerText;
+            document.getElementById("startDateInput").value = document.getElementById("startDateOutput" + i).innerText;
+            document.getElementById("endDateInput").value = document.getElementById("endDateOutput" + i).innerText;
+            document.getElementById("bitnessInput").value = document.getElementById("bitnessOutput" + i).innerText;
+            document.getElementById("downloadLinkInput").value = document.getElementById("downloadLinkOutput" + i).innerText;
+            document.getElementById("discriptionInput").value = document.getElementById("discriptionOutput" + i).innerText;
+            document.getElementById("locationInput").value = document.getElementById("locationOutput" + i).innerText;
+            document.getElementById("notesInput").value = document.getElementById("notesOutput" + i).innerText;
+            document.getElementById("versionInput").style.pointerEvents = "auto";
+            document.getElementById("versionInput").style.backgroundColor = "white";
+        }
+
+        function cancel() {
+            document.getElementById("versionInput").style.pointerEvents = "auto";
+            document.getElementById("versionInput").style.backgroundColor = "white";
+        }
+
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("versionTable");
+            switching = true;
+            dir = "asc"; 
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    shouldSwitch= true;
+                    break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                    }
+                }
+                }
+                if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount ++;      
+                } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+                }
+            }
+        }
+        
+    </script>
+</html>

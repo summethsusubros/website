@@ -1,0 +1,102 @@
+<html lang="en">
+    <%- include("../partials/header.ejs") %>
+    
+    <body class="is-light" style="margin-left: 10%; margin-right: 10%;"> 
+        <style>
+    
+            .card-request-ownership{
+                height:500px; 
+                width:350px; 
+                padding:10px;
+                margin: 10px;
+                box-shadow: 0px 0px 20px 2px lightgrey;
+            }
+
+            .border-text{
+                margin-left: 22px; 
+                background-color: white; 
+                width:140px; 
+                text-align: center; 
+                color: #f80000;
+                position:absolute; 
+                top:-13px;
+                z-index: 1;
+            }
+        </style>
+    <%- include("../partials/nav.ejs") %>
+    
+    <div class="block tab-container">
+
+        <section class="hero is-danger" style="background-color:#f80000; color:white; border-radius: 4px;">
+            <nav class="tabs tabs is-toggle is-fullwidth is-normal">
+                <div class="container">
+                    <ul>
+                        <li class="tab"><a href="/configure/">Index</a></li>
+                        <li class="tab" ><a href="/configure/ownership">Ownership</a></li>
+                        <li class="tab" ><a href="/configure/product">Product Version</a></li>
+                        <li class="tab is-active" ><a href="/configure/define">Define Relationship</a></li>
+                        <li class="tab" ><a href="/configure/account">Account Settings</a></li>
+                        </ul>
+                </div>
+            </nav> 
+        </section>
+ 
+        <div class="container section" style="padding: 30px;">
+
+            <div id="defineRelationship" class="content-tab">
+                <form method="POST">
+                    <div style="position: relative;">
+                        <p class="border-text">Add a new version</p>
+                        <div class="dropbox-container">
+                            <div >
+                                <div class=" is-normal" style="display:inline-block;  text-align: right; margin-right: 10px; padding-top: 7px;">
+                                    Product:
+                                </div>
+                                <div class="select is-normal" style="display:inline-block;">
+                                    <select id="product" name="product" onchange="clickButton()">
+                                        <option disabled hidden selected value="default"> Select Product </option>
+                                        <% for(var i = 0; i < owned.length; i++) { %>
+                                            <option><%= owned[i]%></option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                            </div>   
+
+                            <div >
+                                <div class=" is-normal" style="display:inline-block;  text-align: right; margin-right: 10px;  padding-top: 7px;">
+                                    Tools Version:
+                                </div>
+                                <div class="select is-normal" style="display:inline-block;">
+                                    <select id="toolsVersion" name="toolsVersion" onchange="clickButton()">
+                                        <option disabled hidden selected value="default"> Select Tools Version </option>
+                                        <% for(var i = 0; i < tools.length; i++) { %>
+                                            <option><%= tools[i].toolsVersion %></option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                            </div>   
+
+                            <div >
+                                <button id="confirmSelectionButton" class="button" type="submit" formaction="/configure/define/redirect" style="background-color: #f80000; color: white; display: none;">Confirm Selection</button>
+                            </div>  
+                        
+                        </div>
+                    </div>
+                </form>     
+            </div>
+
+        </div>
+            
+                
+    </div> 
+
+
+    <%- include("../partials/footer.ejs") %>
+    </body>
+    <script>
+        function clickButton(){
+            if(document.getElementById('product').value != "default" && document.getElementById('toolsVersion').value != "default")
+                document.getElementById('confirmSelectionButton').click();
+        }
+    </script>
+</html>

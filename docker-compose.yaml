@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  version-assist:
+    build: ./version-assist
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URL=mongodb://mongo:27017/mydatabase
+      - REDIS_URL=redis://redis:6379
+      - SUPER_ADMIN='summethsusubros@gmail.com'
+    depends_on:
+      - mongo
+      - redis
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"

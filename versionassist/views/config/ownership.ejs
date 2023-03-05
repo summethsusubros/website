@@ -1,0 +1,150 @@
+<html lang="en">
+    <%- include("../partials/header.ejs") %>
+    
+    <body class="is-light" style="margin-left: 10%; margin-right: 10%;"> 
+        <style>
+
+            .card-container{
+                display: flex; 
+                justify-content: space-around;  
+                flex-wrap: wrap;
+                align-items: center;
+            }
+    
+            .card-request-ownership{
+                height:500px; 
+                width:350px; 
+                padding:10px;
+                margin: 10px;
+                position: relative;
+                box-shadow: 0px 0px 20px 2px lightgrey;
+            }
+
+            input[type=checkbox] {
+                accent-color: #f80000;
+            }
+
+        </style>
+    <%- include("../partials/nav.ejs") %>
+    
+    <div class="block tab-container">
+
+
+        <section class="hero is-danger" style="background-color:#f80000; color:white; border-radius: 4px;">
+            <nav class="tabs tabs is-toggle is-fullwidth is-normal">
+                <div class="container">
+                    <ul>
+                        <li class="tab"><a href="/configure">Index</a></li>
+                        <li class="tab is-active" ><a href="/configure/ownership">Ownership</a></li>
+                        <li class="tab" ><a href="/configure/product">Product Version</a></li>
+                        <li class="tab" ><a href="/configure/define">Define Relationship</a></li>   
+                        <li class="tab"><a href="/configure/account">Account Settings</a></li>
+                        </ul>
+                </div>
+            </nav> 
+        </section>
+            
+            
+        <div class="container section" style="padding: 30px;">
+
+            <% for(let i = 0; i < messages.length; i++){ %>
+                <% if(messages[i].split(' ')[2] === 'approved') { %>
+                    <div class="notification is-success is-light">
+                        <button class="delete"></button>
+                        <%= messages[i] %>
+                    </div>
+                <% }else{ %>
+                    <div class="notification is-danger is-light">
+                        <button class="delete"></button>
+                        <%= messages[i] %>
+                    </div>
+                <% } %>
+                
+            <% } %>
+            
+            
+            <div id="ownership" class="content-tab">
+                <div class="card-container">
+                    
+                    <div class="card-request-ownership">
+                        <div style="text-align:center">
+                            <p style="font-weight: bold;">Request Ownership</p>
+                        </div>
+                        <hr class="navbar-divider">
+                        <form style="padding:10px" method="POST">
+                            <div style="height: 400px;overflow-y:scroll;">
+                                <% product = product.filter(x => (!requested.includes(x.name) && !owned.includes(x.name))) %>
+                                <% for(var i=0; i < product.length; i++) { %>
+                                    <div class="control">
+                                        <input name="addprod" id="addprod" type="checkbox" value="<%= product[i].name %>"/>
+                                        <label><%= product[i].name %></label>
+                                    </div>         
+                                <% } %>
+                            </div>   
+                            <div class="control" style="position:absolute; bottom: 10px; left: 10px">
+                                <button class="button" type="submit" style="background-color: #f80000; color: white;">
+                                    Request
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card-request-ownership">    
+                        <div style="text-align:center">
+                            <p style="font-weight: bold;">Awaiting Approval</p>
+                        </div>
+                        <hr class="navbar-divider">     
+                        <form style="padding:10px" method="POST">
+                            <div style="height: 400px;overflow-y:scroll;">
+                                <% for(var i=0; i < requested.length; i++) { %>
+                                    <div class="control">
+                                        <input name="delprod" id="delprod" type="checkbox" value="<%= requested[i] %>"/>
+                                        <label><%= requested[i] %></label>
+                                    </div> 
+                                <% } %>
+                            </div>
+                            <div class="control" style="position:absolute; bottom: 10px; left: 10px">
+                                <button class="button" type="submit" style="background-color: #f80000; color: white;">
+                                    Cancel Request
+                                </button>
+                            </div>
+                        </form>      
+                    </div>
+                    <div class="card-request-ownership">    
+                        <div style="text-align:center">
+                            <p style="font-weight: bold;">Owned Products</p>
+                        </div>
+                        <hr class="navbar-divider">   
+                        <div style="padding:10px">          
+                            <div style="height: 420px;overflow-y:scroll;">
+                            <% for(var i=0; i < owned.length; i++) { %>
+                                <div class="control">
+                                    <label> ✓ <span style="margin-left: 1px;"> <%= owned[i] %> </span> </label>
+                                </div> 
+                            <% } %>     
+                            </div>                     
+                        </div>   
+                    </div>
+                    
+                </div> 
+            </div>
+        </div>
+            
+                
+    </div> 
+
+         
+    <%- include("../partials/footer.ejs") %>
+    </body>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+                const $notification = $delete.parentNode;
+
+                $delete.addEventListener('click', () => {
+                $notification.parentNode.removeChild($notification);
+                });
+            });
+        });
+    </script>
+</html>

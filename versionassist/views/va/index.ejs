@@ -1,0 +1,46 @@
+<html lang="en">
+    <%- include("../partials/header.ejs") %>
+    <style>
+
+    </style>
+    <body class="is-light" style="margin-left: 10%; margin-right: 10%;"> 
+    
+    <%- include("../partials/nav.ejs") %>
+
+
+    <div class="block" style="min-height: 650px;padding: 10px; border: solid; border-color: rgb(200, 200, 200); border-width: 2px; border-radius: 4px; margin-top: 50px;">
+        <br>
+        <form method="POST">
+            
+                <div >
+                    <div class=" is-normal" style="display:inline-block;  text-align: right; margin-right: 10px;  padding-top: 7px; width:150px;">
+                        Tools Version:
+                    </div>
+                    <div class="select is-normal" style="display:inline-block;">
+                        <select id="toolsVersion" name="toolsVersion" onchange="clickButton()">
+                            <option disabled hidden selected value="default"> Select Tools Version </option>
+                            <% for(var i = 0; i < tools.length; i++) { %>
+                                <% var j = i + 1%>
+                                <option value="<%= tools[i].toolsVersion%>+<%= j %>"><%= tools[i].toolsVersion %></option>
+                            <% } %>
+                        </select>
+                    </div>
+                </div>   
+
+                <div >
+                    <button id="confirmSelectionButton" class="button" type="submit" formaction="/index/redirect" style="background-color: #f80000; color: white; display: none;">Confirm Selection</button>
+                </div>
+            
+        </form>
+
+    </div>
+    
+    <%- include("../partials/footer.ejs") %>
+    </body>
+    <script>
+        function clickButton(){
+            if(document.getElementById('toolsVersion').value != "default")
+                document.getElementById('confirmSelectionButton').click();
+        }
+    </script>
+</html>

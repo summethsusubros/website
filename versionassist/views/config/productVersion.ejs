@@ -1,0 +1,70 @@
+<html lang="en">
+
+    <%- include("../partials/header.ejs") %>
+
+    <body class="is-light" style="margin-left: 10%; margin-right: 10%;"> 
+        <style>
+
+        </style>
+
+    <%- include("../partials/nav.ejs") %>
+    
+    <div class="block tab-container">
+
+
+        <section class="hero is-danger" style="background-color:#f80000; color:white; border-radius: 4px;">
+            <nav class="tabs tabs is-toggle is-fullwidth is-normal">
+                <div class="container">
+                    <ul>
+                        <li class="tab"><a href="/configure/">Index</a></li>
+                        <li class="tab" ><a href="/configure/ownership">Ownership</a></li>
+                        <li class="tab is-active" ><a href="/configure/product">Product Version</a></li>
+                        <li class="tab" ><a href="/configure/define">Define Relationship</a></li>
+                        <li class="tab" ><a href="/configure/account">Account Settings</a></li>
+                        </ul>
+                </div>
+            </nav> 
+        </section>
+        
+            
+    
+        <div class="container section" style="padding: 30px;">
+
+            <div id="productVersion" class="content-tab">
+                <div>
+                    <div class=" is-normal" style="display:inline-block; width: 200px; text-align: right; margin-right: 20px; padding-top: 7px;">
+                        Third party type:
+                    </div>
+                    <div class="dropdown is-hoverable" style="display:inline-block;"> 
+                        <div class="dropdown-trigger">
+                            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
+                            <span>Product Type</span>
+                            <span class="icon is-small">
+                                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                            </span>
+                            </button>
+                        </div>
+                
+                        <div class="dropdown-menu" id="dropdown-menu" role="menu">
+                            <div class="dropdown-content">
+                                <% for(var i = 0; i < owned.length; i++) { %>
+                                    <% var route = '/configure/product/' + owned[i].split(' ').join('-'); %>
+                                    <% console.log(route) %>
+                                    <a href="<%= route %>"  class="dropdown-item">
+                                         <%= owned[i] %>  
+                                    </a>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+
+        </div>
+            
+    </div>  
+
+            
+    <%- include("../partials/footer.ejs") %>
+    </body>
+</html>

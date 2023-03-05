@@ -1,0 +1,277 @@
+<html lang="en">
+    <%- include("../partials/header.ejs") %>
+    
+    <body class="is-light" style="margin-left: 10%; margin-right: 10%;"> 
+        <style>
+
+            .icon-button{
+                background: transparent;
+                border: None;
+            }
+
+            .border-text{
+                margin-left: 22px; 
+                padding: 0px 4px;
+                background-color: white; 
+                width:auto; 
+                text-align: center; 
+                color: #f80000;
+                position:absolute; 
+                top:-13px;
+                z-index: 1;
+            }
+
+        </style>
+    <%- include("../partials/nav.ejs") %>
+    
+    <div class="block tab-container">
+
+        <section class="hero is-danger" style="background-color:#f80000; color:white; border-radius: 4px;">
+            <nav class="tabs tabs is-toggle is-fullwidth is-normal">
+                <div class="container">
+                    <ul>
+                        <li class="tab"><a href="/configure/">Index</a></li>
+                        <li class="tab" ><a href="/configure/ownership">Ownership</a></li>
+                        <li class="tab" ><a href="/configure/product">Product Version</a></li>
+                        <li class="tab is-active" ><a href="/configure/define">Define Relationship</a></li>
+                        <li class="tab" ><a href="/configure/account">Account Settings</a></li>
+                    </ul>
+                </div>
+            </nav> 
+        </section>
+
+        <div class="container section" style="padding: 30px;">
+
+            <div id="defineRelationship" class="content-tab">
+                <form method="POST">
+                    <div style="position: relative;">
+                        <p class="border-text">Select product and tools release</p>
+                        <div class="dropbox-container">
+                            <div>
+                                <div class=" is-normal" style="display:inline-block;  text-align: right; margin-right: 10px; padding-top: 7px;">
+                                    Product:
+                                </div>
+                                <div class="select is-normal" style="display:inline-block;">
+                                <select id= "product" name="product" onchange="clickButton()">
+                                    <option disabled hidden selected> Select Product </option>
+                                    <% for(var i = 0; i < owned.length; i++) { %>
+                                        <% if( owned[i] === filter_product) {%>
+                                            <option selected><%= owned[i]%></option>
+                                        <%} else {%>
+                                            <option><%= owned[i]%></option>
+                                        <%} %>
+                                    <% } %>
+                                </select>
+                                </div>
+                            </div>   
+                            <input id="" name="" type="text" value="" hidden>
+                            <div >
+                                <div class=" is-normal" style="display:inline-block;  text-align: right; margin-right: 10px;  padding-top: 7px;">
+                                    Tools Version:
+                                </div>
+                                <div class="select is-normal" style="display:inline-block;">
+                                    <select id="toolsVersion" name="toolsVersion" onchange="clickButton()">
+                                        <option disabled hidden selected> Select Tools Version </option>
+                                        <% for(var i = 0; i < tools.length; i++) { %>
+                                            <% var j = i + 1 %>
+                                            <% if( tools[i].toolsVersion === filter_tools) {%>
+                                                <option selected value="<%= tools[i].toolsVersion%>+<%= j %>"><%= tools[i].toolsVersion%></option>
+                                            <%} else {%>
+                                                <option value="<%= tools[i].toolsVersion%>+<%= j %>"><%= tools[i].toolsVersion%></option>
+                                            <%} %>
+                                        <% } %>
+                                    </select>
+                                </div>
+                            </div>   
+
+                            <div >
+                                <button id="confirmSelectionButton" class="button" type="submit" formaction="/configure/define/redirect" style="background-color: #f80000; color: white;  display: none;" >Confirm Selection</button>
+                            </div>  
+                        
+                        </div>
+                    </div>
+                    <br>
+                    <div id="dependDiv" style="position: relative;">  
+                        <p class="border-text">Support or Deprecate versions from the selected build</p>
+                        <div class="dropbox-container">
+                        
+                            <div>
+                                <div class=" is-normal" style="display:inline-block; text-align: right; margin-right: 10px;  padding-top: 7px;">
+                                    Build:
+                                </div>
+                        
+                                <div class="select is-normal" style="display:inline-block;">
+                                    <select id="build" name="build" onchange="checkSelections()"> 
+                                        <option disabled hidden selected value="default"> Select Build </option>
+                                        <% for(var i = 0; i < build_list.length; i++) { %>
+                                            <% var j = i + 1 %>
+                                            <option value="<%= build_list[i]%>+<%= j %>"><%= build_list[i]%></option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                            </div> 
+                            
+                            <div>
+                                <div class=" is-normal" style="display:inline-block; text-align: right; margin-right: 10px;  padding-top: 7px;">
+                                    Platform:
+                                </div>
+                        
+                                <div class="select is-normal" style="display:inline-block;">
+                                    <select id="platform" name="platform" onchange="checkSelections()">
+                                        <option disabled hidden selected value="default"> Select Platform </option>
+                                        <% for(var i = 0; i < platform_list.length; i++) { %>
+                                            <option><%= platform_list[i].name %></option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class=" is-normal" style="display:inline-block; text-align: right; margin-right: 10px;  padding-top: 7px;">
+                                    Action:
+                                </div>
+                        
+                                <div class="select is-normal" style="display:inline-block;">
+                                    <select id="action" name="action" onchange="checkSelections()">
+                                        <option disabled hidden selected value="default"> Select Action</option>
+                                            <option>Support</option>
+                                            <option>Deprecate</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class=" is-normal" style="display:inline-block; text-align: right; margin-right: 10px;  padding-top: 7px;">
+                                    Version:
+                                </div>
+                        
+                                <div class="select is-normal" style="display:inline-block;">
+                                    <select id="productVersion" name="productVersion" onchange="checkSelections()">
+                                        <option disabled hidden selected value="default"> Select Product Version </option>
+                                        <% for(var i = 0; i < version_list.length; i++) { %>
+                                            <option><%= version_list[i].name %></option>
+                                        <% } %>
+                                    </select>
+                                </div>
+                            </div>
+                                            
+                            <div >
+                                <button id="finalSubmit" class="button" type="submit" formaction="/configure/define/commit" style="background-color: #f80000; color: white;" disabled>Confirm Selection</button>
+                            </div>  
+                            
+                        </div>
+                    </div>
+                </form>  
+                
+                <div style="overflow-y:scroll;">
+                    <table id="presentTable" class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                        <thead>
+                          <tr>
+                            <th onclick="sortTable(0)">Product <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
+                            <th onclick="sortTable(1)">Platform <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
+                            <th onclick="sortTable(2)">Tools Release <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
+                            <th onclick="sortTable(3)">From Tools Build <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>        
+                            <th onclick="sortTable(4)">Supported Version <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
+                            <th></th>
+                          </tr>
+                        </thead>
+                        <tbody> 
+                            <% for(var i = 0; i < present_list.length; i++) { %>  
+                            <tr>
+                                <td id="productOutput<%= i %>"><%= present_list[i].product %></td>
+                                <td id="platformOutput<%= i %>"><%= present_list[i].platform %></td>
+                                <td id="toolsReleaseOutput<%= i %>"><%= present_list[i].toolsRelease %></td>
+                                <td id="buildOutput<%= i %>"><%= present_list[i].build %></td> 
+                                <td id="versionOutput<%= i %>"><%= present_list[i].version %></td>     
+                                <td>
+                                    <button class="is-large icon-button has-tooltip-arrow" data-tooltip="Delete" onclick="changeInputValues('<%= i %>')">     
+                                        <lord-icon
+                                            src="https://cdn.lordicon.com/gsqxdxog.json"
+                                            trigger="morph"
+                                            colors="primary:#000000,secondary:#000000"
+                                            state="morph-trash-in"
+                                            stroke="100"
+                                            style="width:25px;height:25px">
+                                        </lord-icon>
+                                    </button>
+                                </td>                                 
+                            </tr> 
+                            <% } %>                
+                        </tbody>
+                    </table>
+                </div>
+                <br>
+                <div>
+                    <% var route = '/configure/history/' + filter_product.split(' ').join('-'); %>
+                    <% console.log(route) %>
+                    <button id="historyButton" class="button" style="background-color: #f80000;" >
+                        <a href="<%= route %>" style="color: white;">
+                            History
+                            <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </button>
+                </div> 
+                
+            </div>
+
+        </div>
+                 
+    </div> 
+
+    <%- include("../partials/footer.ejs") %>
+    </body>
+    <script>
+        function clickButton(){
+            document.getElementById('confirmSelectionButton').click();
+        }
+
+        function checkSelections(){
+            if(document.getElementById('build').value != "default" && document.getElementById('platform').value != "default" &&
+            document.getElementById('action').value != "default" && document.getElementById('productVersion').value != "default")
+                document.getElementById('finalSubmit').disabled = false;
+        }
+
+        function changeInputValues(i){
+            document.getElementById('platform').value = document.getElementById('platformOutput' + i).innerText;
+            document.getElementById('productVersion').value = document.getElementById('versionOutput' + i).innerText;
+            document.getElementById('action').value = 'Deprecate';
+        }
+
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("presentTable");
+            switching = true;
+            dir = "asc"; 
+            while (switching) {
+                switching = false;
+                rows = table.rows;
+                for (i = 1; i < (rows.length - 1); i++) {
+                shouldSwitch = false;
+                x = rows[i].getElementsByTagName("TD")[n];
+                y = rows[i + 1].getElementsByTagName("TD")[n];
+                if (dir == "asc") {
+                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                    shouldSwitch= true;
+                    break;
+                    }
+                } else if (dir == "desc") {
+                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                    }
+                }
+                }
+                if (shouldSwitch) {
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+                switchcount ++;      
+                } else {
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+                }
+            }
+        }
+    </script>
+</html>
