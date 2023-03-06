@@ -13,7 +13,9 @@ passport.use(new GoogleStrategy({
   
 },
 function(accessToken, refreshToken, profile, done) {
-  console.log(process.env.SUPER_ADMIN, process.env.MONGODB_URL, process.env.REDIS_URL, profile.emails[0].value);
+  console.log(process.env.SUPER_ADMIN, process.env.MONGODB_URL, process.env.REDIS_URL);
+  console.log(profile);
+  console.log(profile.emails[0].value);
   User.findOne({
       'email': profile.emails[0].value
   }, function(err, user) {
