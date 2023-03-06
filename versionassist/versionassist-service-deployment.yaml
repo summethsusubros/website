@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: version-assist-deployment
+spec:
+  selector:
+    matchLabels:
+      app: version-assist
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: version-assist
+    spec:
+      containers:
+        - name: version-assist
+          image: iad.ocir.io/intpsftengt/va-repo/va-frontend:1.0
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGODB_URL
+              value: mongodb://mongo:27017/mydatabase
+            - name: REDIS_URL
+              value: redis://redis:6379
+            - name: SUPER_ADMIN
+              value: 'summethsusubros@gmail.com'
+      imagePullSecrets:
+        - name: va-oke-secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: version-assist-service
+spec:
+  selector:
+    app: version-assist
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: LoadBalancer
