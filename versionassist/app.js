@@ -20,7 +20,7 @@ const vaRoutes = require('./routes/vaRoute');
 const adminRoutes = require('./routes/adminRoute');
 
 // connect to mongodb & listen for requests
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 mongoose.connect(process.env.MONGODB_URL, {useNewUrlParser: true,useUnifiedTopology: true,}) 
   .then(result => app.listen(PORT))
   .catch(err => console.log(err));

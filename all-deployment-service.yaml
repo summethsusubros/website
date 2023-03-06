@@ -7,8 +7,8 @@ spec:
     app: version-assist
   ports:
     - protocol: TCP
-      port: 3000
-      targetPort: 3000
+      port: 8081
+      targetPort: 8080
   type: ClusterIP
 ---
 apiVersion: v1
@@ -20,7 +20,7 @@ spec:
     app: mongo
   ports:
     - protocol: TCP
-      port: 27017
+      port: 8081
       targetPort: 27017
   type: ClusterIP
 ---
@@ -33,7 +33,7 @@ spec:
     app: redis
   ports:
     - protocol: TCP
-      port: 6379
+      port: 8081
       targetPort: 6379
   type: ClusterIP
 ---
@@ -56,7 +56,7 @@ spec:
           image: iad.ocir.io/intpsftengt/va-repo/va-frontend:1.0
           imagePullPolicy: Always
           ports:
-            - containerPort: 3000
+            - containerPort: 8080
           env:
             - name: MONGODB_URL
               value: mongodb://mongo-service:27017/mydatabase

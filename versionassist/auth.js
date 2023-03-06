@@ -8,8 +8,8 @@ const GOOGLE_CLIENT_SECRET = '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';
 passport.use(new GoogleStrategy({
   clientID: GOOGLE_CLIENT_ID,
   clientSecret: GOOGLE_CLIENT_SECRET,
-  callbackURL: "http://version-assist.mt.vcnash.oraclevcn.com:3000/auth/google/callback",
-  /* callbackURL: "http://localhost:3000/auth/google/callback", */
+  callbackURL: "http://version-assist.mt.vcnash.oraclevcn.com:8080/auth/google/callback",
+  /* callbackURL: "http://localhost:8080/auth/google/callback", */
   
 },
 function(accessToken, refreshToken, profile, done) {
