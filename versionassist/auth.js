@@ -13,7 +13,7 @@ passport.use(new GoogleStrategy({
   
 },
 function(accessToken, refreshToken, profile, done) {
-  
+  console.log(process.env.SUPER_ADMIN, process.env.MONGODB_URL, process.env.REDIS_URL);
   User.findOne({
       'email': profile.emails[0].value
   }, function(err, user) {
