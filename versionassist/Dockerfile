@@ -1,15 +1,13 @@
-FROM node:14
+FROM node
 
 WORKDIR /app
 
-COPY package*.json ./
-RUN npm install
-COPY . .
+COPY package.json .
 
-ENV MONGODB_URL=mongodb://mongo:27017/mydatabase
-ENV REDIS_URL=redis://redis:6379
-ENV SUPER_ADMIN='summethsusubros@gmail.com'
+RUN npm install
+
+COPY . . 
 
 EXPOSE 3000
 
-CMD ["npm", "start"]
+CMD ["node", "app.js"]
