@@ -34,6 +34,10 @@
                 z-index: 1;
             }
 
+            .table-column{
+                max-width: 200px;
+            }
+
         </style>
     <%- include("../partials/nav.ejs") %>
     
@@ -140,16 +144,16 @@
                         <table  id="versionTable" class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
                             <thead>
                             <tr>
-                                <th onclick="sortTable(0)">Version <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
-                                <th onclick="sortTable(1)">Major Version <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
-                                <th onclick="sortTable(2)">Start Date <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
-                                <th onclick="sortTable(3)">End Date <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
-                                <th onclick="sortTable(4)">Bitness <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
-                                <th >Download link </th>
-                                <th >Discription </th>
-                                <th >Location </th>
-                                <th >Notes </th>
-                                <th >Actions</th>
+                                <th onclick="sortTable(0)" class="table-column">Version <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
+                                <th onclick="sortTable(1)" class="table-column">Major Version <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
+                                <th onclick="sortTable(2)" class="table-column">Start Date <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
+                                <th onclick="sortTable(3)" class="table-column">End Date <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
+                                <th onclick="sortTable(4)" class="table-column">Bitness <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
+                                <th class="table-column">Download link </th>
+                                <th class="table-column">Discription </th>
+                                <th class="table-column">Location </th>
+                                <th class="table-column">Notes </th>
+                                <th class="table-column">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
