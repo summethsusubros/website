@@ -6,8 +6,8 @@ COPY package*.json ./
 RUN npm install
 COPY . .
 
-ENV MONGODB_URL=mongodb://mongo-service:27017/mydatabase
-ENV REDIS_URL=redis://redis-service:6379
+ENV MONGODB_URL=mongodb://mongo:27017/mydatabase
+ENV REDIS_URL=redis://redis:6379
 ENV SUPER_ADMIN='summethsusubros@gmail.com'
 
 EXPOSE 3000
