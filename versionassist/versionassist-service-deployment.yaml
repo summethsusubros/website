@@ -20,13 +20,11 @@ spec:
             - containerPort: 3000
           env:
             - name: MONGODB_URL
-              value: mongodb://mongo:27017/mydatabase
+              value: mongodb://mongo-service:27017/mydatabase
             - name: REDIS_URL
-              value: redis://redis:6379
+              value: redis://redis-service:6379
             - name: SUPER_ADMIN
               value: 'summethsusubros@gmail.com'
-      imagePullSecrets:
-        - name: va-oke-secret
 ---
 apiVersion: v1
 kind: Service
@@ -40,3 +38,5 @@ spec:
       port: 3000
       targetPort: 3000
   type: LoadBalancer
+
+  

@@ -17,8 +17,6 @@ spec:
           image: iad.ocir.io/intpsftengt/va-repo/va-redis:1.0
           ports:
             - containerPort: 6379
-      imagePullSecrets:
-        - name: va-oke-secret
 ---
 apiVersion: v1
 kind: Service
