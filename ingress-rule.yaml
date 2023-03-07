@@ -9,8 +9,7 @@ metadata:
     service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "400"
 spec:
   rules:
-    - host: <IP address>
-      http:
+    - http:
         paths:
           - path: /
             pathType: Prefix
