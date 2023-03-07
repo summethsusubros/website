@@ -26,7 +26,8 @@ spec:
   selector:
     app: redis
   ports:
-    - protocol: TCP
-      port: 8081
+    - name: redis
+      protocol: TCP
+      port: 6379
       targetPort: 6379
   type: ClusterIP
