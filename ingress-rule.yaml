@@ -1,20 +1,33 @@
 apiVersion: networking.k8s.io/v1
+kind: IngressClass
+metadata:
+  labels:
+    app.kubernetes.io/component: controller
+  name: nginx-example
+  annotations:
+    ingressclass.kubernetes.io/is-default-class: "true"
+spec:
+  controller: k8s.io/ingress-nginx
+
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: version-assist-ingress
   annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
     oci.oraclecloud.com/load-balancer-type: "lb"
     service.beta.kubernetes.io/oci-load-balancer-shape: "flexible"
     service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "10"
     service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "400"
 spec:
+  ingressClassName: nginx-example
   rules:
-    - http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: version-assist-service
-                port:
-                  name: http
+  - http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: version-assist-service
+            port:
+              name: http
