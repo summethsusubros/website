@@ -3,15 +3,19 @@ kind: Ingress
 metadata:
   name: version-assist-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    oci.oraclecloud.com/load-balancer-type: "lb"
+    service.beta.kubernetes.io/oci-load-balancer-shape: "flexible"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-min: "10"
+    service.beta.kubernetes.io/oci-load-balancer-shape-flex-max: "400"
 spec:
   rules:
-  - http:
-      paths:
-        - path: /
-          pathType: Prefix
-          backend:
-            service:
-              name: version-assist-service
-              port:
-                number: 8081
+    - host: <IP address>
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: version-assist-service
+                port:
+                  name: http
