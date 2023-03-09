@@ -6,31 +6,34 @@ const passport = require('passport');
 const responseTime = require('response-time');
 const redis = require('redis-promisify');
 
-const client = redis.createClient(process.env.REDIS_URL);
-
-client.on("error", function (err) {
-  console.log("Error " + err);
-});
-
 const User = require('./models/User');
-
 require('./auth');
 const authRoutes = require('./routes/authRoute');
 const vaRoutes = require('./routes/vaRoute');
 const adminRoutes = require('./routes/adminRoute');
 
-// connect to mongodb & listen for requests
-const PORT = process.env.PORT || 8080;
-mongoose.connect(process.env.MONGODB_URL, {useNewUrlParser: true,useUnifiedTopology: true,}) 
-  .then(result => app.listen(PORT))
+
+const client = redis.createClient(process.env.REDIS_URL);
+client.on("error", function (err) {
+  console.log("Error " + err);
+  console.log("______________  Redis Crashed  ______________");
+});
+
+
+const PORT = 80;
+let URL = process.env.MONGODB_URL;
+mongoose.connect(URL, {useNewUrlParser: true,useUnifiedTopology: true,}) 
+  .then(result => {
+    app.listen(PORT);
+    console.log("______________  MongoDB connected  ______________");
+    console.log("______________  App Started  ______________");
+  })
   .catch(err => console.log(err));
 
+  
 // express app
 const app = express();
-
 app.use(responseTime());
-
-// register view engine
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.set('view engine', 'ejs');
 
