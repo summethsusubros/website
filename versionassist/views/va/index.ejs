@@ -1,14 +1,15 @@
 <html lang="en">
+    <head>
     <%- include("../partials/header.ejs") %>
-    <style>
-
-    </style>
-    <body class="is-light"> 
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
+    </head>
+ 
+    <body class="is-light" style="margin-left:10%;margin-right:10%;"> 
     
     <%- include("../partials/nav.ejs") %>
 
 
-    <div class="block" style="min-height: 650px;padding: 10px; border: solid; border-color: rgb(200, 200, 200); border-width: 2px; border-radius: 4px; margin-top: 50px;">
+    <div class="block page-block">
         <br>
         <form method="POST">
             
@@ -28,7 +29,7 @@
                 </div>   
 
                 <div >
-                    <button id="confirmSelectionButton" class="button" type="submit" formaction="/index/redirect" style="background-color: #f80000; color: white; display: none;">Confirm Selection</button>
+                    <button id="confirmSelectionButton" class="button" type="submit" formaction="/index/redirect" style="display: none;">Confirm Selection</button>
                 </div>
             
         </form>
@@ -36,11 +37,7 @@
     </div>
     
     <%- include("../partials/footer.ejs") %>
+    <script src="/js/index.js"></script>
     </body>
-    <script>
-        function clickButton(){
-            if(document.getElementById('toolsVersion').value != "default")
-                document.getElementById('confirmSelectionButton').click();
-        }
-    </script>
+
 </html>

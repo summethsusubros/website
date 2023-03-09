@@ -1,20 +1,23 @@
 <html lang="en">
+    <head>
     <%- include("../partials/header.ejs") %>
+    <link rel="stylesheet" type="text/css" href="/css/productHistory.css">
+    </head>
     
-    <body class="is-light"> 
-    
+    <body class="is-light" style="margin-left:10%;margin-right:10%;"> 
+
     <%- include("../partials/nav.ejs") %>
 
     <p class="title"> History of version changes in <%= filter_product %></p>
     <table id="historyTable" class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
         <thead>
             <tr>
-                <th onclick="sortTable(0)">Product <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
-                <th onclick="sortTable(1)">Platform <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
-                <th onclick="sortTable(2)">Tools Release <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
-                <th onclick="sortTable(3)">From Tools Build <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
-                <th onclick="sortTable(4)">Product Version <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
-                <th onclick="sortTable(5)">Changes <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
+                <th onclick="sortTable(0)">Product <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" class="sort-icon-style"></lord-icon> </th>
+                <th onclick="sortTable(1)">Platform <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" class="sort-icon-style"></lord-icon> </th>
+                <th onclick="sortTable(2)">Tools Release <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" class="sort-icon-style"></lord-icon> </th>
+                <th onclick="sortTable(3)">From Tools Build <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" class="sort-icon-style"></lord-icon> </th>
+                <th onclick="sortTable(4)">Product Version <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" class="sort-icon-style"></lord-icon> </th>
+                <th onclick="sortTable(5)">Changes <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" class="sort-icon-style"></lord-icon> </th>
                 <th></th>
             </tr>
         </thead>
@@ -42,7 +45,7 @@
                                 colors="primary:#000000,secondary:#000000"
                                 state="morph-trash-in"
                                 stroke="100"
-                                style="width:25px;height:25px">
+                                class="table-icon-style">
                             </lord-icon>
                         </button>
                     </td>
@@ -52,50 +55,13 @@
         </tbody>
     </table>
     <div>
-        <button class="button" onclick="history.back()" style="background-color: #f80000; color: white;" >
+        <button class="button red-bg" onclick="history.back()">
             <i class="fa fa-arrow-left" style="margin-right: 4px;"></i>
             Back
         </button>
     </div> 
     <%- include("../partials/footer.ejs") %>
+    <script src="/js/productHistory.js"></script>
     </body>
-    <script>
 
-        function sortTable(n) {
-            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-            table = document.getElementById("historyTable");
-            switching = true;
-            dir = "asc"; 
-            while (switching) {
-                switching = false;
-                rows = table.rows;
-                for (i = 1; i < (rows.length - 1); i++) {
-                shouldSwitch = false;
-                x = rows[i].getElementsByTagName("TD")[n];
-                y = rows[i + 1].getElementsByTagName("TD")[n];
-                if (dir == "asc") {
-                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                    shouldSwitch= true;
-                    break;
-                    }
-                } else if (dir == "desc") {
-                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                    shouldSwitch = true;
-                    break;
-                    }
-                }
-                }
-                if (shouldSwitch) {
-                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                switching = true;
-                switchcount ++;      
-                } else {
-                if (switchcount == 0 && dir == "asc") {
-                    dir = "desc";
-                    switching = true;
-                }
-                }
-            }
-        }
-    </script>
 </html>

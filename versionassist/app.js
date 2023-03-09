@@ -33,6 +33,7 @@ mongoose.connect(URL, {useNewUrlParser: true,useUnifiedTopology: true,})
   
 // express app
 const app = express();
+app.use(express.static('public'));
 app.use(responseTime());
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.set('view engine', 'ejs');

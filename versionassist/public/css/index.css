@@ -1,0 +1,9 @@
+.page-block{
+    min-height: 650px !important;
+    padding: 10px !important; 
+    border: solid !important; 
+    border-color: rgb(200, 200, 200) !important; 
+    border-width: 2px !important; 
+    border-radius: 4px !important; 
+    margin-top: 50px !important;
+}

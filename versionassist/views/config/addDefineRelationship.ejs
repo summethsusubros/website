@@ -1,32 +1,16 @@
 <html lang="en">
+    <head>
     <%- include("../partials/header.ejs") %>
+    <link rel="stylesheet" type="text/css" href="/css/addDefineRelationship.css">
+    </head>
     
-    <body class="is-light"> 
-        <style>
+    <body class="is-light" style="margin-left:10%;margin-right:10%;"> 
 
-            .icon-button{
-                background: transparent;
-                border: None;
-            }
-
-            .border-text{
-                margin-left: 22px; 
-                padding: 0px 4px;
-                background-color: white; 
-                width:auto; 
-                text-align: center; 
-                color: #f80000;
-                position:absolute; 
-                top:-13px;
-                z-index: 1;
-            }
-
-        </style>
     <%- include("../partials/nav.ejs") %>
     
     <div class="block tab-container">
 
-        <section class="hero is-danger" style="background-color:#f80000; color:white; border-radius: 4px;">
+        <section class="hero is-danger red-bg" style="border-radius: 4px;">
             <nav class="tabs tabs is-toggle is-fullwidth is-normal">
                 <div class="container">
                     <ul>
@@ -48,10 +32,10 @@
                         <p class="border-text">Select product and tools release</p>
                         <div class="dropbox-container">
                             <div>
-                                <div class=" is-normal" style="display:inline-block;  text-align: right; margin-right: 10px; padding-top: 7px;">
+                                <div class="key is-normal">
                                     Product:
                                 </div>
-                                <div class="select is-normal" style="display:inline-block;">
+                                <div class="select is-normal ib" >
                                 <select id= "product" name="product" onchange="clickButton()">
                                     <option disabled hidden selected> Select Product </option>
                                     <% for(var i = 0; i < owned.length; i++) { %>
@@ -66,10 +50,10 @@
                             </div>   
                             <input id="" name="" type="text" value="" hidden>
                             <div >
-                                <div class=" is-normal" style="display:inline-block;  text-align: right; margin-right: 10px;  padding-top: 7px;">
+                                <div class="key is-normal">
                                     Tools Version:
                                 </div>
-                                <div class="select is-normal" style="display:inline-block;">
+                                <div class="select is-normal ib" >
                                     <select id="toolsVersion" name="toolsVersion" onchange="clickButton()">
                                         <option disabled hidden selected> Select Tools Version </option>
                                         <% for(var i = 0; i < tools.length; i++) { %>
@@ -85,7 +69,7 @@
                             </div>   
 
                             <div >
-                                <button id="confirmSelectionButton" class="button" type="submit" formaction="/configure/define/redirect" style="background-color: #f80000; color: white;  display: none;" >Confirm Selection</button>
+                                <button id="confirmSelectionButton" class="button red-bg" type="submit" formaction="/configure/define/redirect" style="display: none;" >Confirm Selection</button>
                             </div>  
                         
                         </div>
@@ -96,11 +80,11 @@
                         <div class="dropbox-container">
                         
                             <div>
-                                <div class=" is-normal" style="display:inline-block; text-align: right; margin-right: 10px;  padding-top: 7px;">
+                                <div class="key is-normal" >
                                     Build:
                                 </div>
                         
-                                <div class="select is-normal" style="display:inline-block;">
+                                <div class="select is-normal ib" >
                                     <select id="build" name="build" onchange="checkSelections()"> 
                                         <option disabled hidden selected value="default"> Select Build </option>
                                         <% for(var i = 0; i < build_list.length; i++) { %>
@@ -112,11 +96,11 @@
                             </div> 
                             
                             <div>
-                                <div class=" is-normal" style="display:inline-block; text-align: right; margin-right: 10px;  padding-top: 7px;">
+                                <div class="key is-normal" >
                                     Platform:
                                 </div>
                         
-                                <div class="select is-normal" style="display:inline-block;">
+                                <div class="select is-normal ib" >
                                     <select id="platform" name="platform" onchange="checkSelections()">
                                         <option disabled hidden selected value="default"> Select Platform </option>
                                         <% for(var i = 0; i < platform_list.length; i++) { %>
@@ -127,11 +111,11 @@
                             </div>
 
                             <div>
-                                <div class=" is-normal" style="display:inline-block; text-align: right; margin-right: 10px;  padding-top: 7px;">
+                                <div class="key is-normal" >
                                     Action:
                                 </div>
                         
-                                <div class="select is-normal" style="display:inline-block;">
+                                <div class="select is-normal ib" >
                                     <select id="action" name="action" onchange="checkSelections()">
                                         <option disabled hidden selected value="default"> Select Action</option>
                                             <option>Support</option>
@@ -141,11 +125,11 @@
                             </div>
 
                             <div>
-                                <div class=" is-normal" style="display:inline-block; text-align: right; margin-right: 10px;  padding-top: 7px;">
+                                <div class="key is-normal" >
                                     Version:
                                 </div>
                         
-                                <div class="select is-normal" style="display:inline-block;">
+                                <div class="select is-normal ib" >
                                     <select id="productVersion" name="productVersion" onchange="checkSelections()">
                                         <option disabled hidden selected value="default"> Select Product Version </option>
                                         <% for(var i = 0; i < version_list.length; i++) { %>
@@ -156,7 +140,7 @@
                             </div>
                                             
                             <div >
-                                <button id="finalSubmit" class="button" type="submit" formaction="/configure/define/commit" style="background-color: #f80000; color: white;" disabled>Confirm Selection</button>
+                                <button id="finalSubmit" class="button red-bg" type="submit" formaction="/configure/define/commit" disabled>Confirm Selection</button>
                             </div>  
                             
                         </div>
@@ -167,11 +151,11 @@
                     <table id="presentTable" class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
                         <thead>
                           <tr>
-                            <th onclick="sortTable(0)">Product <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
-                            <th onclick="sortTable(1)">Platform <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
-                            <th onclick="sortTable(2)">Tools Release <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
-                            <th onclick="sortTable(3)">From Tools Build <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>        
-                            <th onclick="sortTable(4)">Supported Version <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" style="width:20px;height:14px"></lord-icon> </th>
+                            <th onclick="sortTable(0)">Product <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" class= "icon-style"></lord-icon> </th>
+                            <th onclick="sortTable(1)">Platform <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" class= "icon-style"></lord-icon> </th>
+                            <th onclick="sortTable(2)">Tools Release <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" class= "icon-style"></lord-icon> </th>
+                            <th onclick="sortTable(3)">From Tools Build <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" class= "icon-style"></lord-icon> </th>        
+                            <th onclick="sortTable(4)">Supported Version <lord-icon src="https://cdn.lordicon.com/rvuqcvqy.json" trigger="hover" colors="primary:#000000,secondary:#000000" stroke="100" class= "icon-style"></lord-icon> </th>
                             <th></th>
                           </tr>
                         </thead>
@@ -191,7 +175,7 @@
                                             colors="primary:#000000,secondary:#000000"
                                             state="morph-trash-in"
                                             stroke="100"
-                                            style="width:25px;height:25px">
+                                            class="table-icon-style">
                                         </lord-icon>
                                     </button>
                                 </td>                                 
@@ -219,59 +203,6 @@
     </div> 
 
     <%- include("../partials/footer.ejs") %>
+    <script src="/js/addDefineRelationship.js"></script>
     </body>
-    <script>
-        function clickButton(){
-            document.getElementById('confirmSelectionButton').click();
-        }
-
-        function checkSelections(){
-            if(document.getElementById('build').value != "default" && document.getElementById('platform').value != "default" &&
-            document.getElementById('action').value != "default" && document.getElementById('productVersion').value != "default")
-                document.getElementById('finalSubmit').disabled = false;
-        }
-
-        function changeInputValues(i){
-            document.getElementById('platform').value = document.getElementById('platformOutput' + i).innerText;
-            document.getElementById('productVersion').value = document.getElementById('versionOutput' + i).innerText;
-            document.getElementById('action').value = 'Deprecate';
-        }
-
-        function sortTable(n) {
-            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-            table = document.getElementById("presentTable");
-            switching = true;
-            dir = "asc"; 
-            while (switching) {
-                switching = false;
-                rows = table.rows;
-                for (i = 1; i < (rows.length - 1); i++) {
-                shouldSwitch = false;
-                x = rows[i].getElementsByTagName("TD")[n];
-                y = rows[i + 1].getElementsByTagName("TD")[n];
-                if (dir == "asc") {
-                    if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                    shouldSwitch= true;
-                    break;
-                    }
-                } else if (dir == "desc") {
-                    if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                    shouldSwitch = true;
-                    break;
-                    }
-                }
-                }
-                if (shouldSwitch) {
-                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                switching = true;
-                switchcount ++;      
-                } else {
-                if (switchcount == 0 && dir == "asc") {
-                    dir = "desc";
-                    switching = true;
-                }
-                }
-            }
-        }
-    </script>
 </html>

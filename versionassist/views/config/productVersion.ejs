@@ -1,18 +1,18 @@
 <html lang="en">
 
+    <head>
     <%- include("../partials/header.ejs") %>
+    <link rel="stylesheet" type="text/css" href="/css/productVersion.css">
+    </head>
 
-    <body class="is-light"> 
-        <style>
-
-        </style>
+    <body class="is-light" style="margin-left:10%;margin-right:10%;"> 
 
     <%- include("../partials/nav.ejs") %>
     
     <div class="block tab-container">
 
 
-        <section class="hero is-danger" style="background-color:#f80000; color:white; border-radius: 4px;">
+        <section class="hero is-danger hero-style" >
             <nav class="tabs tabs is-toggle is-fullwidth is-normal">
                 <div class="container">
                     <ul>
@@ -32,10 +32,10 @@
 
             <div id="productVersion" class="content-tab">
                 <div>
-                    <div class=" is-normal" style="display:inline-block; width: 200px; text-align: right; margin-right: 20px; padding-top: 7px;">
+                    <div class="key is-normal">
                         Third party type:
                     </div>
-                    <div class="dropdown is-hoverable" style="display:inline-block;"> 
+                    <div class="dropdown is-hoverable ib"> 
                         <div class="dropdown-trigger">
                             <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
                             <span>Product Type</span>

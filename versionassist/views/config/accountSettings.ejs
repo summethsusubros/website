@@ -1,17 +1,18 @@
 
 <html lang="en">
+    <head>
     <%- include("../partials/header.ejs") %>
+    <link rel="stylesheet" type="text/css" href="/css/accountSettings.css">
+    </head>
     
-    <body class="is-light"> 
-        <style>
+    <body class="is-light" style="margin-left:10%;margin-right:10%;"> 
 
-        </style>
     <%- include("../partials/nav.ejs") %>
     
     <div class="block tab-container">
 
 
-        <section class="hero is-danger" style="background-color:#f80000; color:white; border-radius: 4px;">
+        <section class="hero is-danger hero-style">
             <nav class="tabs tabs is-toggle is-fullwidth is-normal">
                 <div class="container">
                     <ul>
@@ -30,32 +31,27 @@
         <div class="container section" style="padding: 30px;">
             <div id="accountSettings" class="content-tab">
                 <div>
-                    <div class=" is-normal" style="display:inline-block; width: 200px; text-align: right; margin-right: 20px; padding-top: 7px;">
+                    <div class="key is-normal">
                         Name: 
                     </div>
             
-                    <div class=" is-normal" style="display:inline-block;">
+                    <div class="value is-normal">
                         <%= currentUser.name %>
                     </div>
                 </div> 
                 <div>
-                    <div class=" is-normal" style="display:inline-block; width: 200px; text-align: right; margin-right: 20px; padding-top: 7px;">
+                    <div class="key is-normal">
                         E-mail: 
                     </div>
             
-                    <div class=" is-normal" style="display:inline-block;">
+                    <div class="value is-normal">
                         <%= currentUser.email %>
                     </div>
                 </div> 
             </div>
-        </div>
-            
-                
+        </div>     
     </div> 
 
-    <script>
-
-    </script>
             
     <%- include("../partials/footer.ejs") %>
     </body>

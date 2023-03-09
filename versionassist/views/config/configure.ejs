@@ -1,37 +1,17 @@
 <html lang="en">
+    <head>
     <%- include("../partials/header.ejs") %>
+    <link rel="stylesheet" type="text/css" href="/css/configure.css">
+    </head>
     
-    <body class="is-light"> 
-        <style>
+    <body class="is-light" style="margin-left:10%;margin-right:10%;"> 
 
-            .card-container{
-                display: flex; 
-                justify-content: space-around;  
-                flex-wrap: wrap;
-                align-items: center;
-            }
-            .card-index{
-                height: 250px; 
-                width:250px; 
-                padding:10px 10px 10px 20px;
-                margin: 10px;
-                color: black;
-                box-shadow: 0px 0px 20px 2px lightgrey;
-            }
-
-            .card-index:hover{  
-                box-shadow: 0px 0px 20px 2px grey;
-            }
-
-            
-
-        </style>
     <%- include("../partials/nav.ejs") %>
     
     <div class="block tab-container">
 
 
-        <section class="hero is-danger" style="background-color:#f80000; color:white; border-radius: 4px;">
+        <section class="hero is-danger hero-style" >
             <nav class="tabs tabs is-toggle is-fullwidth is-normal">
                 <div class="container">
                     <ul>
@@ -112,22 +92,7 @@
                 
     </div> 
 
-    <script>
-        function openTab(evt, tabName) {
-            var i, x, tablinks;
-            x = document.getElementsByClassName("content-tab");
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-            }
-            tablinks = document.getElementsByClassName("tab");
-            for (i = 0; i < x.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" is-active", "");
-            }
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " is-active";
-        }
-    </script>
-            
     <%- include("../partials/footer.ejs") %>
+    <script src="/js/configure.js"></script>
     </body>
 </html>

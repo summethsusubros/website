@@ -1,0 +1,83 @@
+.icon-button{
+    background: transparent;
+    border: None;
+    padding: 0px;
+    margin: 0px;
+}
+
+.input-box{
+    width: 160px;
+    border-color: grey;
+    color: black;
+}
+
+.input-box::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+color: black;
+opacity: 0.5; /* Firefox */
+}
+
+.border-text{
+    margin-left: 22px; 
+    background-color: white; 
+    width:140px; 
+    text-align: center; 
+    color: #f80000;
+    position:absolute; 
+    top:-13px;
+    z-index: 1;
+}
+
+.table-column{
+    width: 200px;
+}
+
+.tab-container{
+min-height: 700px;
+border: solid; 
+border-color: rgb(200, 200, 200); 
+border-width: 1px; 
+margin-top: 50px;
+border-radius: 4px;
+}
+
+.dropbox-container{
+    border: solid; 
+    border-radius: 10px;
+    padding: 20px 20px;
+    display: flex; 
+    justify-content: flex-start;  
+    flex-wrap: wrap;
+    gap: 20px; 
+    align-items: center;
+}
+.key{
+    display:inline-block; 
+    width: 200px;
+    text-align: right;
+    margin-right: 20px;
+    padding-top: 7px;
+}
+
+.red-bg{
+    background-color:#f80000 !important; 
+    color:white !important;
+}
+
+.ib{
+    display:inline-block !important;
+}
+
+.table-icon-style{
+    width:25px;height:25px
+}
+
+.sort-icon-style{
+width:20px;
+height:14px;
+}
+
+.hero-style{
+    background-color:#f80000 !important;
+    color:white !important;
+    border-radius: 4px !important;
+}

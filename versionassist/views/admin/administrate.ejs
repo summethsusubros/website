@@ -1,58 +1,33 @@
 <html lang="en">
+    <head>
     <%- include("../partials/header.ejs") %>
+    <link rel="stylesheet" type="text/css" href="/css/administrate.css">
+    </head>
     
-    <body class="is-light"> 
+    <body class="is-light" style="margin-left:10%;margin-right:10%;"> 
     
-    <style>
-            .card-container{
-                display: flex; 
-                justify-content: space-evenly;  
-                flex-wrap: wrap;
-                align-items: flex-start;
-            }
-    
-            .card-request-ownership{
-                width:380px;
-                padding:10px;
-                margin: 10px;
-                box-shadow: 0px 0px 20px 2px lightgrey;
-                height: 540px;
-            }
-
-            .button-style{
-                /* width: 80px; */
-                background-color: #f80000; 
-                color: white; 
-                padding: 6px 12px; 
-                border-style: none; 
-                border-radius: 2px;
-            }
-    </style>
-
     <%- include("../partials/nav.ejs") %>
 
     <div class="card-container">
         <div class="card-request-ownership" >
             <form method="POST">
                 <div class="control">
-                    <label style="font-weight: 600; font-size: large;">Register a product with Version Assist</label>
+                    <label class="heading-text">Register a product with Version Assist</label>
                 </div>
                 <div>
-                    <input class="input" type="text" placeholder="Product Name" style=" margin: 10px 0px;" id="product_name" name="product_name">   
+                    <input class="input" type="text" placeholder="Product Name" style="margin:10px 0px;" id="product_name" name="product_name">   
                 </div>
                 <div class="control" >
-                    <button class="button is-primary" style="background-color: #f80000;" type="submit" formaction="/administrate/add-products"> Add Product </button>
+                    <button class="button is-primary red-bg"  type="submit" formaction="/administrate/add-products"> Add Product </button>
                 </div>
                 <hr class="navbar-divider">
                 <div class="control">
-                    <label style="font-weight: 600; font-size: large;">Existing Products</label> 
+                    <label class="heading-text">Existing Products</label> 
                 </div>
-                <div style="height: 350px;overflow-y:scroll;">
+                <div class="scroll">
                 <% for(var i = 0; i < product_list.length; i++) {%>
-                    <div style="font-weight:300; font-size: medium;"> ✓
-
-
- <%= product_list[i].name %> </div>
+                    <div class="list-text"> ✓
+                        <%= product_list[i].name %> </div>
                 <% } %>
                 </div>
             </form>
@@ -61,40 +36,38 @@
         <div class="card-request-ownership" >
             <form method="POST">
                 <div class="control">
-                    <label style="font-weight: 600; font-size: large;">Add New Administrator To Version Assist</label> 
+                    <label class="heading-text">Add New Administrator To Version Assist</label> 
                 </div>
                 <div>
-                    <input class="input" type="email" placeholder="Email" style=" margin: 10px 0px;" id="admin_email" name="admin_email"> 
+                    <input class="input" type="email" placeholder="Email" style="margin:10px 0px;" id="admin_email" name="admin_email"> 
                 </div>
                 <div class="control" >
-                    <button class="button is-primary" style="background-color: #f80000;" type="submit" formaction="/administrate/add-admin">Add Admin</button>
+                    <button class="button is-primary red-bg"  type="submit" formaction="/administrate/add-admin">Add Admin</button>
                 </div>
                 <hr class="navbar-divider">
                 <div class="control">
-                    <label style="font-weight: 600; font-size: large;">Existing Admins</label> 
+                    <label class="heading-text">Existing Admins</label> 
                 </div>
-                <div style="height: 350px;overflow-y:scroll;">
+                <div class="scroll">
                 <% for(var i = 0; i < admin_list.length; i++) {%>
-                    <div style="font-weight:300; font-size: medium;"> ✓
-
-
- <%= admin_list[i].email %> </div>
+                    <div class="list-text"> ✓
+                        <%= admin_list[i].email %> </div>
                 <% } %>
                 </div>
             </form>
         </div>
 
         <div class="card-request-ownership">
-            <div style="font-weight: 600; font-size: large;">Requests To Become Product Manager</div>
+            <div class="heading-text">Requests To Become Product Manager</div>
             <hr class="navbar-divider">
             <div style=" height: 480px;overflow-y:scroll;">
                 <% for(var i = 0; i < request_list.length; i++) {%>
         
                 <form method="POST">
                     <div>
-                        <div style="font-weight: 600; font-size: large;"> <%= request_list[i].product %></div> 
-                        <div style="font-weight:300; font-size: small;"> <%= request_list[i].name %> </div>
-                        <div style="font-weight:300; font-size: small;"> <%= request_list[i].email %> </div>
+                        <div class="heading-text"> <%= request_list[i].product %></div> 
+                        <div class="request-text"> <%= request_list[i].name %> </div>
+                        <div class="request-text"> <%= request_list[i].email %> </div>
                         <input type="hidden" name="product" value="<%= request_list[i].product %>"/>
                         <input type="hidden" name="email" value="<%= request_list[i].email %>"/>
                     </div>
@@ -118,21 +91,21 @@
         <div class="card-request-ownership" >
             <form method="POST">
                 <div class="control">
-                    <label style="font-weight: 600; font-size: large;">Register New Platform To Version Assist</label>
+                    <label class="heading-text">Register New Platform To Version Assist</label>
                 </div>
                 <div>
-                    <input class="input" type="text" placeholder="Platform Name" style=" margin: 10px 0px;" id="platform_name" name="platform_name">   
+                    <input class="input" type="text" placeholder="Platform Name" style="margin:10px 0px;" id="platform_name" name="platform_name">   
                 </div>
                 <div class="control" >
-                    <button class="button is-primary" style="background-color: #f80000;" type="submit" formaction="/administrate/add-platforms"> Add Platform </button>
+                    <button class="button is-primary red-bg"  type="submit" formaction="/administrate/add-platforms"> Add Platform </button>
                 </div>
                 <hr class="navbar-divider">
                 <div class="control">
-                    <label style="font-weight: 600; font-size: large;">Existing Platform</label> 
+                    <label class="heading-text">Existing Platform</label> 
                 </div>
-                <div style="height: 350px;overflow-y:scroll;">
+                <div class="scroll">
                 <% for(var i = 0; i < platform_list.length; i++) {%>
-                    <div style="font-weight:300; font-size: medium;"> ✓
+                    <div class="list-text"> ✓
 
 
  <%= platform_list[i].name %> </div>
@@ -144,21 +117,21 @@
         <div class="card-request-ownership" >
             <form method="POST">
                 <div class="control">
-                    <label style="font-weight: 600; font-size: large;">Register New PeopleTools Version To VA</label>
+                    <label class="heading-text">Register New PeopleTools Version To VA</label>
                 </div>
                 <div>
-                    <input class="input" type="text" placeholder="PeopleTools Version" style=" margin: 10px 0px;" id="tools_name" name="tools_name">   
+                    <input class="input" type="text" placeholder="PeopleTools Version" style="margin:10px 0px;" id="tools_name" name="tools_name">   
                 </div>
                 <div class="control" >
-                    <button class="button is-primary" style="background-color: #f80000;" type="submit" formaction="/administrate/add-tools"> Add PeopleTools Version </button>
+                    <button class="button is-primary red-bg"  type="submit" formaction="/administrate/add-tools"> Add PeopleTools Version </button>
                 </div>
                 <hr class="navbar-divider">
                 <div class="control">
-                    <label style="font-weight: 600; font-size: large;">Existing PeopleTools Version</label> 
+                    <label class="heading-text">Existing PeopleTools Version</label> 
                 </div>
-                <div style="height: 350px;overflow-y:scroll;">
+                <div class="scroll">
                 <% for(var i = 0; i < release_list.length; i++) {%>
-                    <div style="font-weight:300; font-size: medium;"> 
+                    <div class="list-text"> 
                         ✓
                         <%= release_list[i].toolsVersion %> 
                     </div>
@@ -170,9 +143,9 @@
         <div class="card-request-ownership" >
             <form method="POST">
                 <div class="control">
-                    <label style="font-weight: 600; font-size: large;">Add New Build To PeopleTools Version</label>
+                    <label class="heading-text">Add New Build To PeopleTools Version</label>
                 </div>         
-                <div class="field has-addons" style=" margin: 10px 0px;">
+                <div class="field has-addons" style="margin:10px 0px;">
                     <div class="control">
                         <input class="input" type="text" placeholder="Build" id="build_name" name="build_name">
                     </div>
@@ -198,16 +171,16 @@
                 </div>
 
                 <div class="control" >
-                    <button class="button is-primary" style="background-color: #f80000;" type="submit" formaction="/administrate/add-builds"> Add Build </button>
+                    <button class="button is-primary red-bg"  type="submit" formaction="/administrate/add-builds"> Add Build </button>
                 </div>
                 <hr class="navbar-divider">
 
                 <div class="control">
-                    <label style="font-weight: 600; font-size: large;">Existing Build under <%= filter_tools %></label> 
+                    <label class="heading-text">Existing Build under <%= filter_tools %></label> 
                 </div>
-                <div style="height: 350px;overflow-y:scroll;">
+                <div class="scroll">
                 <% for(var i = 0; i < build_list.length; i++) {%>
-                    <div style="font-weight:300; font-size: medium;"> 
+                    <div class="list-text"> 
                         ✓
                         <%= build_list[i] %>
                     </div>
@@ -222,10 +195,7 @@
 
     
     <%- include("../partials/footer.ejs") %>
+    <script src="/js/administrate.js"></script>
     </body> 
-    <script>
-        function showBuilds(){
-            document.getElementById('getBuilds').click();
-        }
-    </script>
+    
 </html>

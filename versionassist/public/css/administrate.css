@@ -1,0 +1,47 @@
+.card-container{
+    display: flex; 
+    justify-content: space-evenly;  
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+
+.card-request-ownership{
+    width:380px;
+    padding:10px;
+    margin: 10px;
+    box-shadow: 0px 0px 20px 2px lightgrey;
+    height: 540px;
+}
+
+.button-style{
+    /* width: 80px; */
+    background-color: #f80000; 
+    color: white; 
+    padding: 6px 12px; 
+    border-style: none; 
+    border-radius: 2px;
+}
+
+.heading-text{
+    font-weight: 600;
+     font-size: large;
+}
+
+.red-bg{
+    background-color: #f80000 !important;
+}
+
+.scroll{
+    height: 350px;
+    overflow-y:scroll;
+}
+
+.list-text{
+    font-weight:300;
+    font-size: medium;
+}
+
+.request-text{
+    font-weight:300; 
+    font-size: small;
+}

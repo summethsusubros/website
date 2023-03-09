@@ -1,36 +1,16 @@
 <html lang="en">
+    <head>
     <%- include("../partials/header.ejs") %>
+    <link rel="stylesheet" type="text/css" href="/css/ownership.css">
+    </head>
     
-    <body class="is-light"> 
-        <style>
+    <body class="is-light" style="margin-left:10%;margin-right:10%;"> 
 
-            .card-container{
-                display: flex; 
-                justify-content: space-around;  
-                flex-wrap: wrap;
-                align-items: center;
-            }
-    
-            .card-request-ownership{
-                height:500px; 
-                width:350px; 
-                padding:10px;
-                margin: 10px;
-                position: relative;
-                box-shadow: 0px 0px 20px 2px lightgrey;
-            }
-
-            input[type=checkbox] {
-                accent-color: #f80000;
-            }
-
-        </style>
     <%- include("../partials/nav.ejs") %>
     
     <div class="block tab-container">
 
-
-        <section class="hero is-danger" style="background-color:#f80000; color:white; border-radius: 4px;">
+        <section class="hero is-danger hero-style" >
             <nav class="tabs tabs is-toggle is-fullwidth is-normal">
                 <div class="container">
                     <ul>
@@ -81,7 +61,7 @@
                                     </div>         
                                 <% } %>
                             </div>   
-                            <div class="control" style="position:absolute; bottom: 10px; left: 10px">
+                            <div class="control button-space">
                                 <button class="button" type="submit" style="background-color: #f80000; color: white;">
                                     Request
                                 </button>
@@ -103,7 +83,7 @@
                                     </div> 
                                 <% } %>
                             </div>
-                            <div class="control" style="position:absolute; bottom: 10px; left: 10px">
+                            <div class="control button-space">
                                 <button class="button" type="submit" style="background-color: #f80000; color: white;">
                                     Cancel Request
                                 </button>
@@ -135,16 +115,7 @@
 
          
     <%- include("../partials/footer.ejs") %>
+    <script src="/js/ownership.js"></script>
     </body>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
-                const $notification = $delete.parentNode;
 
-                $delete.addEventListener('click', () => {
-                $notification.parentNode.removeChild($notification);
-                });
-            });
-        });
-    </script>
 </html>
